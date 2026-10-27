@@ -1,5 +1,6 @@
 plugins {
     kotlin("jvm") version "2.4.20"
+    application
 }
 
 group = "org.example"
@@ -10,7 +11,12 @@ repositories {
 }
 
 dependencies {
+    implementation("org.xerial:sqlite-jdbc:3.47.2.0")
     testImplementation(kotlin("test"))
+}
+
+application {
+    mainClass.set("MainKt")
 }
 
 kotlin {
@@ -19,4 +25,7 @@ kotlin {
 
 tasks.test {
     useJUnitPlatform()
+}
+tasks.withType<JavaExec> {
+    jvmArgs("--enable-native-access=ALL-UNNAMED")
 }
